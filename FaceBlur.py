@@ -9,19 +9,12 @@ import dlib
 
 from cv2 import dnn_superres
 
-#import numpy as np
 
-# scale_factor = 1.1
-# min_neighbors = 6
-#
-# border = 0.5
-#
-# filter = "haze"
-#
-# line_num = 150
-# line_color = (0, 0, 0)
+# Make sure to install OpenCV and dlib
 
-upscale_size = 0
+# TODO:
+# better upscale command line control
+# impove filsystem interaction, specifically automatic directory/file detection
 
 
 def rand_point(w, h):
@@ -96,7 +89,7 @@ def process_image(input_name, output_name, args):
     elif args.mode == "cnn":
         detector = dlib.cnn_face_detection_model_v1(args.model)
         img = dlib.load_rgb_image("tmp.png" if args.upscale else input_name)
-        faces = detector(img, upscale_size)
+        faces = detector(img, 0)
 
         faces = list(map(lambda f: (f.rect.left(), f.rect.top(),
                      f.rect.width(), f.rect.height()), faces))
